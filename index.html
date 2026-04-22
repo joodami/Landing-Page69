@@ -19,27 +19,35 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* ห้ามเลื่อน */
+            overflow: hidden; /* ห้ามเลื่อนที่ตัว Body */
             font-family: 'Prompt', sans-serif;
             background-color: var(--bg-body);
         }
 
-        .app-wrapper {
-            height: 100%;
+        /* พื้นที่สำหรับหน้าหลัก */
+        #homePage {
+            height: calc(100% - 70px);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px 15px 85px 15px; /* เผื่อที่ด้านล่างสำหรับ Navbar */
+            padding: 20px 15px;
         }
 
-        /* ส่วนหัวแบบกระทัดรัด */
+        /* พื้นที่สำหรับ iframe (หน้าเว็บอื่น) */
+        #contentFrame {
+            width: 100%;
+            height: calc(100% - 70px);
+            border: none;
+            display: none; /* ซ่อนไว้ก่อน */
+        }
+
         .app-header {
             text-align: center;
             margin-top: 10px;
         }
 
         .school-logo {
-            width: 70px; /* ลดขนาดลง */
+            width: 70px;
             margin-bottom: 10px;
         }
 
@@ -55,7 +63,6 @@
             color: #64748b;
         }
 
-        /* ส่วนปุ่มเมนูแบบกะทัดรัด */
         .menu-section {
             display: grid;
             gap: 15px;
@@ -72,6 +79,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             transition: 0.2s;
             border: 1px solid rgba(0,0,0,0.03);
+            cursor: pointer;
         }
 
         .menu-card:active {
@@ -99,7 +107,7 @@
         .menu-title { font-weight: 600; color: #334155; font-size: 1rem; display: block; }
         .menu-desc { font-size: 0.75rem; color: #94a3b8; }
 
-        /* Bottom Navbar แบบแอป */
+        /* Bottom Navbar */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -123,6 +131,8 @@
             align-items: center;
             font-size: 0.7rem;
             font-weight: 400;
+            cursor: pointer;
+            width: 33.33%; /* แบ่ง 3 ส่วนเท่ากัน */
         }
 
         .nav-item i {
@@ -134,7 +144,6 @@
             color: var(--primary);
         }
 
-        /* พื้นหลังตกแต่งเล็กน้อย */
         .bg-circle {
             position: fixed;
             top: -50px;
@@ -151,7 +160,7 @@
 
 <div class="bg-circle"></div>
 
-<div class="app-wrapper">
+<div id="homePage">
     <div class="app-header">
         <img src="https://raw.githubusercontent.com/joodami/school-assets/main/logo.png" alt="Logo" class="school-logo">
         <h1 class="system-title">Piman Digital Office</h1>
@@ -159,7 +168,7 @@
     </div>
 
     <div class="menu-section">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform" class="menu-card">
+        <div onclick="openPage('https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform', 'edit')" class="menu-card">
             <div class="icon-box icon-1">
                 <i class="fas fa-file-signature"></i>
             </div>
@@ -168,9 +177,9 @@
                 <span class="menu-desc">บันทึกข้อมูลเพื่อเสนอเซ็นหนังสือ</span>
             </div>
             <i class="fas fa-chevron-right ms-auto text-muted" style="font-size: 0.8rem;"></i>
-        </a>
+        </div>
 
-        <a href="https://joodami.github.io/track-status69/" class="menu-card">
+        <div onclick="openPage('https://joodami.github.io/track-status69/', 'search')" class="menu-card">
             <div class="icon-box icon-2">
                 <i class="fas fa-tasks"></i>
             </div>
@@ -179,7 +188,7 @@
                 <span class="menu-desc">ตรวจสอบคลังหนังสือออนไลน์</span>
             </div>
             <i class="fas fa-chevron-right ms-auto text-muted" style="font-size: 0.8rem;"></i>
-        </a>
+        </div>
     </div>
 
     <div class="text-center text-muted" style="font-size: 0.7rem; opacity: 0.6;">
@@ -187,24 +196,58 @@
     </div>
 </div>
 
+<iframe id="contentFrame" src=""></iframe>
+
 <nav class="bottom-nav">
-    <a href="#" class="nav-item active">
+    <a onclick="goHome()" id="nav-home" class="nav-item active">
         <i class="fas fa-home"></i>
         <span>หน้าหลัก</span>
     </a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform" class="nav-item">
+    <a onclick="openPage('https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform', 'edit')" id="nav-edit" class="nav-item">
         <i class="fas fa-edit"></i>
         <span>เสนอเซ็น</span>
     </a>
-    <a href="https://joodami.github.io/track-status69/" class="nav-item">
+    <a onclick="openPage('https://joodami.github.io/track-status69/', 'search')" id="nav-search" class="nav-item">
         <i class="fas fa-search"></i>
         <span>ติดตาม</span>
     </a>
-    <a href="#" class="nav-item" onclick="alert('สารบรรณ โรงเรียนพิมานพิทยาสรรค์ 2026')">
-        <i class="fas fa-info-circle"></i>
-        <span>ข้อมูล</span>
-    </a>
 </nav>
+
+<script>
+    const homePage = document.getElementById('homePage');
+    const contentFrame = document.getElementById('contentFrame');
+    const navHome = document.getElementById('nav-home');
+    const navEdit = document.getElementById('nav-edit');
+    const navSearch = document.getElementById('nav-search');
+
+    // ฟังก์ชันเปิดหน้าเว็บใน iframe
+    function openPage(url, type) {
+        homePage.style.display = 'none';
+        contentFrame.style.display = 'block';
+        contentFrame.src = url;
+        
+        // อัปเดตเมนู Active
+        clearActive();
+        if(type === 'edit') navEdit.classList.add('active');
+        if(type === 'search') navSearch.classList.add('active');
+    }
+
+    // ฟังก์ชันกลับหน้าหลัก
+    function goHome() {
+        contentFrame.style.display = 'none';
+        homePage.style.display = 'flex';
+        contentFrame.src = ""; // ล้างค่า iframe
+        
+        clearActive();
+        navHome.classList.add('active');
+    }
+
+    function clearActive() {
+        navHome.classList.remove('active');
+        navEdit.classList.remove('active');
+        navSearch.classList.remove('active');
+    }
+</script>
 
 </body>
 </html>
