@@ -5,18 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบเสนอเซ็นออนไลน์ - โรงเรียนพิมานพิทยาสรรค์</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary-color: #1a5276;
-            --accent-color: #3498db;
-            --bg-color: #f0f4f8;
+            --primary-gradient: linear-gradient(135deg, #1a5276 0%, #3498db 100%);
+            --submit-color: #2ecc71; /* สีเขียวสดใสสำหรับการส่งงาน */
+            --track-color: #f39c12;  /* สีส้มสดใสสำหรับการติดตาม */
+            --bg-light: #f8fafc;
         }
 
         body {
-            font-family: 'Sarabun', sans-serif;
-            background: var(--bg-color);
+            font-family: 'Prompt', sans-serif;
+            background: var(--bg-light);
+            background-image: radial-gradient(circle at 10% 20%, rgba(26, 82, 118, 0.05) 0%, rgba(52, 152, 219, 0.05) 90.2%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -26,88 +28,102 @@
         }
 
         .app-container {
-            max-width: 450px;
+            max-width: 420px;
             width: 100%;
             text-align: center;
         }
 
         /* Header Section */
         .school-logo {
-            width: 80px;
-            height: auto;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            width: 90px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
 
         .system-title {
-            color: var(--primary-color);
+            color: #1e293b;
             font-weight: 600;
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            line-height: 1.4;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
         }
 
         .school-name {
             color: #64748b;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
+            font-size: 1rem;
+            margin-bottom: 45px;
+            font-weight: 300;
         }
 
         /* Menu Buttons */
         .menu-grid {
             display: grid;
-            gap: 20px;
+            gap: 25px;
         }
 
         .menu-item {
             background: white;
-            padding: 25px 20px;
-            border-radius: 24px;
-            text-decoration: none;
+            padding: 30px 20px;
+            border-radius: 30px;
+            text-decoration: none !important;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border: 2px solid transparent;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
         }
 
-        .menu-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: 0 15px 30px rgba(26, 82, 118, 0.1);
-        }
-
-        .icon-box {
-            width: 65px;
-            height: 65px;
-            background: #f1f5f9;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-            color: var(--primary-color);
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1));
+            opacity: 0;
             transition: 0.3s;
         }
 
-        .menu-item:hover .icon-box {
-            background: var(--primary-color);
-            color: white;
+        .menu-item:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
+
+        .icon-box {
+            width: 75px;
+            height: 75px;
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            font-size: 2rem;
+            color: white;
+            transition: 0.4s;
+        }
+
+        /* แยกสีไอคอนให้สดใส */
+        .icon-submit { background: linear-gradient(135deg, #2ecc71, #27ae60); box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3); }
+        .icon-track { background: linear-gradient(135deg, #3498db, #2980b9); box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3); }
 
         .menu-text {
             font-weight: 600;
             color: #1e293b;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+        }
+
+        .menu-sub {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 5px;
         }
 
         /* Footer */
         .app-footer {
-            margin-top: 50px;
-            font-size: 0.85rem;
-            color: #94a3b8;
+            margin-top: 60px;
+            font-size: 0.8rem;
+            color: #cbd5e0;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -116,28 +132,30 @@
 <div class="app-container">
     <img src="https://raw.githubusercontent.com/joodami/school-assets/main/logo.png" alt="Logo" class="school-logo">
     
-    <h1 class="system-title">ระบบเสนอเซ็นหนังสือราชการออนไลน์</h1>
+    <h1 class="system-title">ระบบสารบรรณออนไลน์</h1>
     <p class="school-name">โรงเรียนพิมานพิทยาสรรค์</p>
 
     <div class="menu-grid">
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform" class="menu-item">
-            <div class="icon-box">
-                <i class="fas fa-pen-nib"></i>
+            <div class="icon-box icon-submit">
+                <i class="fas fa-paper-plane"></i>
             </div>
             <span class="menu-text">เสนอเซ็นหนังสือออนไลน์</span>
+            <span class="menu-sub">ส่งหนังสือราชการผ่านระบบ</span>
         </a>
 
         <a href="https://joodami.github.io/track-status69/" class="menu-item">
-            <div class="icon-box">
-                <i class="fas fa-search"></i>
+            <div class="icon-box icon-track">
+                <i class="fas fa-bell"></i>
             </div>
-            <span class="menu-text">ติดตามสถานะหนังสือเสนอเซ็น</span>
+            <span class="menu-text">ติดตามสถานะหนังสือ</span>
+            <span class="menu-sub">ตรวจสอบสถานะการพิจารณา</span>
         </a>
     </div>
 
     <div class="app-footer">
-        งานสารบรรณ โรงเรียนพิมานพิทยาสรรค์<br>
-        © 2026 Piman Pittayasarn School
+        © 2026 Piman Pittayasarn School<br>
+        DIGITAL OFFICE SYSTEM
     </div>
 </div>
 
