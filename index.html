@@ -2,162 +2,209 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบเสนอเซ็นออนไลน์ - โรงเรียนพิมานพิทยาสรรค์</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Piman Office App</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #1a5276 0%, #3498db 100%);
-            --submit-color: #2ecc71; /* สีเขียวสดใสสำหรับการส่งงาน */
-            --track-color: #f39c12;  /* สีส้มสดใสสำหรับการติดตาม */
-            --bg-light: #f8fafc;
+            --primary: #1a5276;
+            --accent: #3498db;
+            --bg-body: #f4f7f9;
         }
 
-        body {
-            font-family: 'Prompt', sans-serif;
-            background: var(--bg-light);
-            background-image: radial-gradient(circle at 10% 20%, rgba(26, 82, 118, 0.05) 0%, rgba(52, 152, 219, 0.05) 90.2%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+        /* บังคับหน้าจอให้พอดี ไม่ให้เลื่อน */
+        body, html {
+            height: 100%;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            overflow: hidden; /* ห้ามเลื่อน */
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--bg-body);
         }
 
-        .app-container {
-            max-width: 420px;
-            width: 100%;
+        .app-wrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 15px 85px 15px; /* เผื่อที่ด้านล่างสำหรับ Navbar */
+        }
+
+        /* ส่วนหัวแบบกระทัดรัด */
+        .app-header {
             text-align: center;
+            margin-top: 10px;
         }
 
-        /* Header Section */
         .school-logo {
-            width: 90px;
-            margin-bottom: 25px;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            width: 70px; /* ลดขนาดลง */
+            margin-bottom: 10px;
         }
 
         .system-title {
-            color: #1e293b;
+            font-size: 1.3rem;
             font-weight: 600;
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            color: var(--primary);
+            margin: 0;
         }
 
         .school-name {
+            font-size: 0.85rem;
             color: #64748b;
-            font-size: 1rem;
-            margin-bottom: 45px;
-            font-weight: 300;
         }
 
-        /* Menu Buttons */
-        .menu-grid {
+        /* ส่วนปุ่มเมนูแบบกะทัดรัด */
+        .menu-section {
             display: grid;
-            gap: 25px;
+            gap: 15px;
+            margin: 20px 0;
         }
 
-        .menu-item {
+        .menu-card {
             background: white;
-            padding: 30px 20px;
-            border-radius: 30px;
+            border-radius: 20px;
+            padding: 15px;
             text-decoration: none !important;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: 0.2s;
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0.1));
-            opacity: 0;
-            transition: 0.3s;
-        }
-
-        .menu-item:hover {
-            transform: scale(1.03) translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        .menu-card:active {
+            transform: scale(0.96);
+            background: #f8f9fa;
         }
 
         .icon-box {
-            width: 75px;
-            height: 75px;
-            border-radius: 22px;
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 18px;
-            font-size: 2rem;
+            font-size: 1.4rem;
             color: white;
-            transition: 0.4s;
+            margin-right: 15px;
+            flex-shrink: 0;
         }
 
-        /* แยกสีไอคอนให้สดใส */
-        .icon-submit { background: linear-gradient(135deg, #2ecc71, #27ae60); box-shadow: 0 8px 20px rgba(46, 204, 113, 0.3); }
-        .icon-track { background: linear-gradient(135deg, #3498db, #2980b9); box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3); }
+        .icon-1 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .icon-2 { background: linear-gradient(135deg, #3498db, #2980b9); }
 
-        .menu-text {
-            font-weight: 600;
-            color: #1e293b;
-            font-size: 1.15rem;
+        .text-content { text-align: left; }
+        .menu-title { font-weight: 600; color: #334155; font-size: 1rem; display: block; }
+        .menu-desc { font-size: 0.75rem; color: #94a3b8; }
+
+        /* Bottom Navbar แบบแอป */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
+            border-radius: 20px 20px 0 0;
+            z-index: 1000;
         }
 
-        .menu-sub {
-            font-size: 0.85rem;
+        .nav-item {
+            text-decoration: none !important;
             color: #94a3b8;
-            margin-top: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 400;
         }
 
-        /* Footer */
-        .app-footer {
-            margin-top: 60px;
-            font-size: 0.8rem;
-            color: #cbd5e0;
-            letter-spacing: 0.5px;
+        .nav-item i {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        /* พื้นหลังตกแต่งเล็กน้อย */
+        .bg-circle {
+            position: fixed;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(26, 82, 118, 0.03);
+            border-radius: 50%;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <img src="https://raw.githubusercontent.com/joodami/school-assets/main/logo.png" alt="Logo" class="school-logo">
-    
-    <h1 class="system-title">ระบบสารบรรณออนไลน์</h1>
-    <p class="school-name">โรงเรียนพิมานพิทยาสรรค์</p>
+<div class="bg-circle"></div>
 
-    <div class="menu-grid">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform" class="menu-item">
-            <div class="icon-box icon-submit">
-                <i class="fas fa-paper-plane"></i>
+<div class="app-wrapper">
+    <div class="app-header">
+        <img src="https://raw.githubusercontent.com/joodami/school-assets/main/logo.png" alt="Logo" class="school-logo">
+        <h1 class="system-title">Piman Digital Office</h1>
+        <p class="school-name">โรงเรียนพิมานพิทยาสรรค์</p>
+    </div>
+
+    <div class="menu-section">
+        <a href="URL_หน้าเสนอเซ็น" class="menu-card">
+            <div class="icon-box icon-1">
+                <i class="fas fa-file-signature"></i>
             </div>
-            <span class="menu-text">เสนอเซ็นหนังสือออนไลน์</span>
-            <span class="menu-sub">ส่งหนังสือราชการผ่านระบบ</span>
+            <div class="text-content">
+                <span class="menu-title">เสนอเซ็นออนไลน์</span>
+                <span class="menu-desc">บันทึกข้อมูลเพื่อเสนอเซ็นหนังสือ</span>
+            </div>
+            <i class="fas fa-chevron-right ms-auto text-muted" style="font-size: 0.8rem;"></i>
         </a>
 
-        <a href="https://joodami.github.io/track-status69/" class="menu-item">
-            <div class="icon-box icon-track">
-                <i class="fas fa-bell"></i>
+        <a href="URL_หน้าติดตามสถานะ" class="menu-card">
+            <div class="icon-box icon-2">
+                <i class="fas fa-tasks"></i>
             </div>
-            <span class="menu-text">ติดตามสถานะหนังสือ</span>
-            <span class="menu-sub">ตรวจสอบสถานะการพิจารณา</span>
+            <div class="text-content">
+                <span class="menu-title">ติดตามสถานะหนังสือ</span>
+                <span class="menu-desc">ตรวจสอบคลังหนังสือออนไลน์</span>
+            </div>
+            <i class="fas fa-chevron-right ms-auto text-muted" style="font-size: 0.8rem;"></i>
         </a>
     </div>
 
-    <div class="app-footer">
-        © 2026 Piman Pittayasarn School<br>
-        DIGITAL OFFICE SYSTEM
+    <div class="text-center text-muted" style="font-size: 0.7rem; opacity: 0.6;">
+        Smart School Management v2.0
     </div>
 </div>
+
+<nav class="bottom-nav">
+    <a href="#" class="nav-item active">
+        <i class="fas fa-home"></i>
+        <span>หน้าหลัก</span>
+    </a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform" class="nav-item">
+        <i class="fas fa-edit"></i>
+        <span>เสนอเซ็น</span>
+    </a>
+    <a href="https://joodami.github.io/track-status69/" class="nav-item">
+        <i class="fas fa-search"></i>
+        <span>ติดตาม</span>
+    </a>
+    <a href="#" class="nav-item" onclick="alert('สารบรรณ โรงเรียนพิมานพิทยาสรรค์ 2026')">
+        <i class="fas fa-info-circle"></i>
+        <span>ข้อมูล</span>
+    </a>
+</nav>
 
 </body>
 </html>
