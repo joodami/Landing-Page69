@@ -14,17 +14,16 @@
             --bg-body: #f4f7f9;
         }
 
-        /* บังคับหน้าจอให้พอดี ไม่ให้เลื่อน */
         body, html {
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* ห้ามเลื่อนที่ตัว Body */
+            overflow: hidden;
             font-family: 'Prompt', sans-serif;
             background-color: var(--bg-body);
         }
 
-        /* พื้นที่สำหรับหน้าหลัก */
+        /* หน้าหลัก */
         #homePage {
             height: calc(100% - 70px);
             display: flex;
@@ -33,132 +32,57 @@
             padding: 20px 15px;
         }
 
-        /* พื้นที่สำหรับ iframe (หน้าเว็บอื่น) */
+        /* พื้นที่ iframe */
         #contentFrame {
             width: 100%;
             height: calc(100% - 70px);
             border: none;
-            display: none; /* ซ่อนไว้ก่อน */
+            display: none;
         }
 
-        .app-header {
-            text-align: center;
-            margin-top: 10px;
-        }
+        .app-header { text-align: center; margin-top: 10px; }
+        .school-logo { width: 70px; margin-bottom: 10px; }
+        .system-title { font-size: 1.3rem; font-weight: 600; color: var(--primary); margin: 0; }
+        .school-name { font-size: 0.85rem; color: #64748b; }
 
-        .school-logo {
-            width: 70px;
-            margin-bottom: 10px;
-        }
-
-        .system-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin: 0;
-        }
-
-        .school-name {
-            font-size: 0.85rem;
-            color: #64748b;
-        }
-
-        .menu-section {
-            display: grid;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
+        .menu-section { display: grid; gap: 15px; margin: 20px 0; }
         .menu-card {
-            background: white;
-            border-radius: 20px;
-            padding: 15px;
-            text-decoration: none !important;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: 0.2s;
-            border: 1px solid rgba(0,0,0,0.03);
-            cursor: pointer;
+            background: white; border-radius: 20px; padding: 15px;
+            text-decoration: none !important; display: flex; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.2s;
+            cursor: pointer; border: 1px solid rgba(0,0,0,0.03);
         }
-
-        .menu-card:active {
-            transform: scale(0.96);
-            background: #f8f9fa;
-        }
+        .menu-card:active { transform: scale(0.96); background: #f8f9fa; }
 
         .icon-box {
-            width: 50px;
-            height: 50px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            color: white;
-            margin-right: 15px;
-            flex-shrink: 0;
+            width: 50px; height: 50px; border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; color: white; margin-right: 15px; flex-shrink: 0;
         }
-
         .icon-1 { background: linear-gradient(135deg, #2ecc71, #27ae60); }
         .icon-2 { background: linear-gradient(135deg, #3498db, #2980b9); }
 
-        .text-content { text-align: left; }
-        .menu-title { font-weight: 600; color: #334155; font-size: 1rem; display: block; }
-        .menu-desc { font-size: 0.75rem; color: #94a3b8; }
+        .menu-title { font-weight: 600; color: #334155; font-size: 1rem; display: block; text-align: left; }
+        .menu-desc { font-size: 0.75rem; color: #94a3b8; display: block; text-align: left; }
 
         /* Bottom Navbar */
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: 70px; background: white;
+            display: flex; justify-content: space-around; align-items: center;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.08);
-            border-radius: 20px 20px 0 0;
-            z-index: 1000;
+            border-radius: 20px 20px 0 0; z-index: 1000;
         }
-
         .nav-item {
-            text-decoration: none !important;
-            color: #94a3b8;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.7rem;
-            font-weight: 400;
-            cursor: pointer;
-            width: 33.33%; /* แบ่ง 3 ส่วนเท่ากัน */
+            text-decoration: none !important; color: #94a3b8;
+            display: flex; flex-direction: column; align-items: center;
+            font-size: 0.7rem; cursor: pointer; width: 33.33%;
         }
-
-        .nav-item i {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-        }
-
-        .nav-item.active {
-            color: var(--primary);
-        }
-
-        .bg-circle {
-            position: fixed;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(26, 82, 118, 0.03);
-            border-radius: 50%;
-            z-index: -1;
-        }
+        .nav-item i { font-size: 1.4rem; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary); }
     </style>
 </head>
 <body>
-
-<div class="bg-circle"></div>
 
 <div id="homePage">
     <div class="app-header">
@@ -168,31 +92,27 @@
     </div>
 
     <div class="menu-section">
-        <div onclick="openPage('https://forms.gle/rvTyvzwGcZ2jQFbc6', 'edit')" class="menu-card">
-            <div class="icon-box icon-1">
-                <i class="fas fa-file-signature"></i>
-            </div>
+        <div onclick="openPage('https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform', 'form')" class="menu-card">
+            <div class="icon-box icon-1"><i class="fas fa-file-signature"></i></div>
             <div class="text-content">
-                <span class="menu-title">เสนอเซ็นออนไลน์</span>
-                <span class="menu-desc">บันทึกข้อมูลเพื่อเสนอเซ็นหนังสือ</span>
+                <span class="menu-title">เสนอเซ็นออนไลน์ ปี 2569</span>
+                <span class="menu-desc">เปิดฟอร์มในหน้าต่างใหม่เพื่อกรอกข้อมูล</span>
             </div>
-            <i class="fas fa-chevron-right ms-auto text-muted" style="font-size: 0.8rem;"></i>
+            <i class="fas fa-external-link-alt ms-auto text-muted" style="font-size: 0.8rem;"></i>
         </div>
 
-        <div onclick="openPage('https://joodami.github.io/track-status69/', 'search')" class="menu-card">
-            <div class="icon-box icon-2">
-                <i class="fas fa-tasks"></i>
-            </div>
+        <div onclick="openPage('https://joodami.github.io/track-status69/', 'app')" class="menu-card">
+            <div class="icon-box icon-2"><i class="fas fa-tasks"></i></div>
             <div class="text-content">
-                <span class="menu-title">ติดตามสถานะหนังสือ</span>
-                <span class="menu-desc">ตรวจสอบคลังหนังสือออนไลน์</span>
+                <span class="menu-title">ติดตามสถานะหนังสือ ปี 2569</span>
+                <span class="menu-desc">ตรวจสอบคลังหนังสือผ่านหน้าแอป</span>
             </div>
             <i class="fas fa-chevron-right ms-auto text-muted" style="font-size: 0.8rem;"></i>
         </div>
     </div>
 
     <div class="text-center text-muted" style="font-size: 0.7rem; opacity: 0.6;">
-        Smart School Management v2.0
+        พัฒนาโดย งานสารบรรณโรงเรียน
     </div>
 </div>
 
@@ -200,16 +120,13 @@
 
 <nav class="bottom-nav">
     <a onclick="goHome()" id="nav-home" class="nav-item active">
-        <i class="fas fa-home"></i>
-        <span>หน้าหลัก</span>
+        <i class="fas fa-home"></i><span>หน้าหลัก</span>
     </a>
-    <a onclick="openPage('https://forms.gle/rvTyvzwGcZ2jQFbc6', 'edit')" id="nav-edit" class="nav-item">
-        <i class="fas fa-edit"></i>
-        <span>เสนอเซ็น</span>
+    <a onclick="openPage('https://docs.google.com/forms/d/e/1FAIpQLSewguRcJ9noZvMPJX1QdavSGV8Ib95WUeWVcIInTd0sPGieIA/viewform', 'form')" id="nav-edit" class="nav-item">
+        <i class="fas fa-edit"></i><span>เสนอเซ็น</span>
     </a>
-    <a onclick="openPage('https://joodami.github.io/track-status69/', 'search')" id="nav-search" class="nav-item">
-        <i class="fas fa-search"></i>
-        <span>ติดตาม</span>
+    <a onclick="openPage('https://joodami.github.io/track-status69/', 'app')" id="nav-search" class="nav-item">
+        <i class="fas fa-search"></i><span>ติดตาม</span>
     </a>
 </nav>
 
@@ -220,24 +137,25 @@
     const navEdit = document.getElementById('nav-edit');
     const navSearch = document.getElementById('nav-search');
 
-    // ฟังก์ชันเปิดหน้าเว็บใน iframe
     function openPage(url, type) {
-        homePage.style.display = 'none';
-        contentFrame.style.display = 'block';
-        contentFrame.src = url;
-        
-        // อัปเดตเมนู Active
-        clearActive();
-        if(type === 'edit') navEdit.classList.add('active');
-        if(type === 'search') navSearch.classList.add('active');
+        if (type === 'form') {
+            // กรณี Google Form ให้เปิดแท็บใหม่
+            window.open(url, '_blank');
+        } else {
+            // กรณีหน้าติดตาม ให้แสดงใน iframe เหมือนเดิม
+            homePage.style.display = 'none';
+            contentFrame.style.display = 'block';
+            contentFrame.src = url;
+            
+            clearActive();
+            navSearch.classList.add('active');
+        }
     }
 
-    // ฟังก์ชันกลับหน้าหลัก
     function goHome() {
         contentFrame.style.display = 'none';
         homePage.style.display = 'flex';
-        contentFrame.src = ""; // ล้างค่า iframe
-        
+        contentFrame.src = "";
         clearActive();
         navHome.classList.add('active');
     }
